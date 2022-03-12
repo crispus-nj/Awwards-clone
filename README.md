@@ -30,6 +30,14 @@ Make sure all your keys are accessible in the settings.py file by writing the fo
 Create the admin username by:
 
     python3 manage.py createsuperuser
+Run database migrations:
+
+    python3 manage.py makemigrations
+
+migrate database:
+
+    python3 manage.py migrate
+
 run the project by:
 
     python3 manage.py runserver
