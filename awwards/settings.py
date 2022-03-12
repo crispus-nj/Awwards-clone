@@ -52,7 +52,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'awwards.urls'
-
+AUTH_USER_MODEL = 'accounts.UserAccount'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
