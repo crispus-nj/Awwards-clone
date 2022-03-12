@@ -27,9 +27,7 @@ Make sure all your keys are accessible in the settings.py file by writing the fo
     set -o allexport
     source .env
     echo $SECRET_KEY
-Create the admin username by:
 
-    python3 manage.py createsuperuser
 Run database migrations:
 
     python3 manage.py makemigrations
@@ -37,6 +35,10 @@ Run database migrations:
 migrate database:
 
     python3 manage.py migrate
+
+Create the admin username by:
+
+    python3 manage.py createsuperuser
 
 run the project by:
 
