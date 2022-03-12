@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
+from .forms import RegisterForm
+
 # Create your views here.
 def login_user(request):
     if request.method == 'POST':
@@ -16,5 +18,6 @@ def login_user(request):
     return render(request, 'accounts/login.html')
 
 def register(request):
-
-    return render(request, 'accounts/register.html')
+    form = RegisterForm()
+    context = {'form': form}
+    return render(request, 'accounts/register.html', context)

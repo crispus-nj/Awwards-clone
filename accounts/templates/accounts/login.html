@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+        <h5 class="text-center mt-5 mb-5">WELCOME TO AWWWARDS</h5>
+        <div class="div d-flex justify-content-between align-items-center">
+            <div class="info">
+                <strong><p>Sign in to continue</p></strong>
+            </div>
+            <div class="infomation">
+                <p>Not a member yet? <a href="{% url 'register'%}">Register now</a></p>
+            </div>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                
+            </div>
+            <div class="form-group d-grid">
+                <button class="btn btn-primary btn-block">LOGIN NOW</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
