@@ -46,3 +46,8 @@ def login_user(request):
             return HttpResponse("Invalid user")
     return render(request, 'accounts/login.html')
 
+@login_required(login_url='login')
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
