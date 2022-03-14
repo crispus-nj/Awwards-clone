@@ -16,7 +16,7 @@ def create_post(request):
             description = form.cleaned_data['description']
             project_link = form.cleaned_data['project_link']
             image = form.cleaned_data['image']
-            print(name, description, project_link, image)
+
             project = Project.objects.create(
                 name = name,
                 author = request.user,
@@ -32,21 +32,22 @@ def create_post(request):
 
 def like_post(request):
     user = request.user
+
     if request.method == 'POST':
-        post = request.POST.get('post')
-        project = Project.objects.get(id = post)
-
-        if user in project.liked.all():
-            project.liked.remove(user)
-        else : 
-            project.liked.add(user)
-
-        like, created = Like.objects.get_or_create(user = user, project=post)
-        if created:
-            like.value == 'like'
-            like.value == 'unlike'
+        post_id = request.POST.get('post')
+        post_obj = Project.objects.get(id = post_id)
+        if user in post_obj.liked.all():
+            post_obj.liked.remove(user)
         else :
-            like.value == 'like'
+            post_obj.liked.add(user)
 
-        like.save()
+        like, created = Like.objects.get_or_create(user=user, post_id=post_id)
+
+        if created:
+            if like.value == 'like':
+                like.value == 'unlike'
+            else :
+                like.value == 'like'
+            
+        like.save()    
     return redirect('home')

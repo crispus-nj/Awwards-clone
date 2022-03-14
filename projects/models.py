@@ -26,8 +26,8 @@ LIKED_CHOICES = (
 
 class Like(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True)
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
+    post = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True)
     value = models.CharField(choices=LIKED_CHOICES, default='like' ,max_length=10)
 
     def __str__(self):
-        return str(self.project)
+        return str(self.post)
