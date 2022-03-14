@@ -14,7 +14,23 @@
           <h5 class="card-title">Posted by {{post.author.username}}</h5>
           <h5 class="card-title">{{post.name}}</h5>
           <p class="card-text">{{post.description}}</p>
-          <a href="{{post.project_link}}" class="btn btn-primary">Visit site</a>
+          <div class="div d-flex justify-content-between align-items-center">
+              <div class="like">
+                <a href="{{post.project_link}}" class="btn btn-primary">Visit site</a>
+              </div>
+              <div class="liked">
+                <form action="{% url 'like'%}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="post" id="post" value="{{post.id}}">
+                    {% if user not in post.liked.all %}
+                    <button class="btn btn-info" type="submit">like</button>
+                    {% else %}
+                    <button class="btn btn-danger" type="submit">unlike</button>
+                    {% endif %}
+                </form>
+                {{post.liked.all.count}}
+              </div>
+          </div>
         </div>
       </div>
     </div>

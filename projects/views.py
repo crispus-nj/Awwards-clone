@@ -1,10 +1,11 @@
 from django.shortcuts import redirect, render
-from .models import Project
+from .models import Project, Like
 from .forms import PostProjectForm
 
 def home(request):
     posts = Project.objects.all()
-    context = {'posts': posts}
+    user = request.user
+    context = {'posts': posts, 'user': user}
     return render(request, 'projects/index.html', context)
 
 def create_post(request):
@@ -28,3 +29,24 @@ def create_post(request):
     form = PostProjectForm()
     context = {'form': form}
     return render(request, 'projects/create_post.html', context)
+
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post = request.POST.get('post')
+        project = Project.objects.get(id = post)
+
+        if user in project.liked.all():
+            project.liked.remove(user)
+        else : 
+            project.liked.add(user)
+
+        like, created = Like.objects.get_or_create(user = user, project=post)
+        if created:
+            like.value == 'like'
+            like.value == 'unlike'
+        else :
+            like.value == 'like'
+
+        like.save()
+    return redirect('home')
