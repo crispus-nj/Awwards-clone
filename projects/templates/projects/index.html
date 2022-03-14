@@ -1,4 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Homepage</h1>
+{% for post in posts %}
+{{post.name}}
+<hr>
+{{post.description}}
+<hr>
+{{post.project_link}}
+<div class="card mt-4 mb-5">
+    <div class="avatar-home">
+        <div class="image-profile">
+            <img src="{{post.author.avatar.url}}" alt="profile picture" class="rounded-circle" style="height: 70px;width:70px;border-radius: 50%">
+        </div>
+        <div class="username" style="margin-bottom: -0.9rem;">
+            <p><a href="#" style="text-decoration: none;">{{post.author.username}}</a></p>
+        </div>
+    </div>
+    <hr>
+    <img src="{{post.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+       5 <i class="far fa-heart"></i>
+        <i class="fa-solid fa-comment-dots"></i>
+        <p class="card-text">{{post.description}}</p>
+    </div>
+    
+</div>
+{% endfor %}
 {% endblock %}

@@ -7,6 +7,7 @@ class Project(models.Model):
     author = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name='author')
     description = models.TextField()
     project_link = models.CharField(max_length=200)
+    image = models.ImageField()
     liked = models.ManyToManyField(UserAccount, null=True, blank=True, related_name='liked')
     date_posted = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
