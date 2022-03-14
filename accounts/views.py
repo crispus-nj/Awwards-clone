@@ -11,7 +11,7 @@ def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         # print(form)
-        print (type(form.errors))
+        # print (type(form.errors))
         if form.is_valid():
             email = form.cleaned_data['email']
             username = form.cleaned_data['username']
