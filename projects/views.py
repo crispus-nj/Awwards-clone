@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Project
-# Create your views here.
+from .forms import PostProjectForm
+
 def home(request):
     posts = Project.objects.all()
     context = {'posts': posts}
@@ -13,5 +14,7 @@ def create_post(request):
         image = request.FILES.get('image')
         url = request.POST.get('url')
 
-        print(name, description, "pichaa",image, url)
-    return render(request, 'projects/create_post.html')
+        print(name, description, image, url)
+    form = PostProjectForm()
+    context = {'form': form}
+    return render(request, 'projects/create_post.html', context)
