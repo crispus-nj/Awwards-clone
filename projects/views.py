@@ -5,4 +5,6 @@ def home(request):
     posts = Project.objects.all()
     context = {'posts': posts}
     return render(request, 'projects/index.html', context)
-    
+
+def create_post(request):
+    return render(request, 'projects/create_post.html')
