@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from .models import UserAccount
 from .forms import RegisterForm
-
+from projects.models import Project
 # Create your views here.
 
 def register(request):
@@ -51,3 +51,9 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
+
+def profile(request, pk):
+    user = UserAccount.objects.get(id=pk)
+    posts = Project.objects.get(id = pk)
+    context = {'posts': posts, 'user': user}
+    return render(request, 'accounts/profile.html', context)

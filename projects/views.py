@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
 from .models import Project, Like
 from .forms import PostProjectForm
 
@@ -8,6 +9,7 @@ def home(request):
     context = {'posts': posts, 'user': user}
     return render(request, 'projects/index.html', context)
 
+@login_required(login_url='login')
 def create_post(request):
     if request.method == 'POST':
         form = PostProjectForm(request.POST, request.FILES)
@@ -29,7 +31,8 @@ def create_post(request):
     form = PostProjectForm()
     context = {'form': form}
     return render(request, 'projects/create_post.html', context)
-
+    
+@login_required(login_url='login')
 def like_post(request):
     user = request.user
 
