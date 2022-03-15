@@ -4,7 +4,7 @@ from accounts.models import UserAccount
 
 class Project(models.Model):
     name = models.CharField(max_length=100)
-    author = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True, related_name='author')
+    author = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     project_link = models.URLField(max_length=200)
     image = models.ImageField()

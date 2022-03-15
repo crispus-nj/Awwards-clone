@@ -51,9 +51,9 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
-
+@login_required(login_url='login')
 def profile(request, pk):
     user = UserAccount.objects.get(id=pk)
-    posts = Project.objects.get(id = pk)
+    posts = user.project_set.all()
     context = {'posts': posts, 'user': user}
     return render(request, 'accounts/profile.html', context)
