@@ -30,7 +30,7 @@
                             <div class="card-body">
                               <h5 class="card-title"><p style="margin-left: 0.3rem; vertical-align:middle">{{post.liked.all.count}} likes</p> </h5>
                               <h6 class="card-subtitle mb-2 text-muted">{{post.name}}</h6>
-                              <p class="card-text">{{post.description}}</p>
+                              <p class="card-text">{{post.description|truncatechars:60}}</p>
                               <a href="{{post.project_link}}" class="card-link">View Site</a>
                             </div>
                           </div>

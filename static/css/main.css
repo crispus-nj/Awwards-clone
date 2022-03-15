@@ -1,0 +1,32 @@
+.container {
+    background-image: url('https://assets.awwwards.com/assets/images/pages/awards-2020/social/home.jpg?v=1');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+  }
+  /* .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+  } */
+  /* 
+  .hero h1 {
+    font-size: 46px;
+    margin: -20px 0 20px;
+  }
+  .hero p {
+    font-size: 20px;
+    letter-spacing: 1px;
+  } */
