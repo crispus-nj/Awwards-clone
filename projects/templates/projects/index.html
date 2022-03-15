@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-md-12 container">
+        <div class="container-home">
+            <h1 class="text-white">Welcome To AWWWARDS Website</h1>
+            <p style="max-width: 400px;margin:auto;letter-spacing: 1px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea ipsam assumenda dicta similique odio adipisci earum sed ad temporibus, quis illo quae laborum veritatis mollitia cupiditate fuga eum vero iste!</p>
+          <form action="{% url 'create-post'%}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-primary m-5" type="submit">POST A PROJECT FOR A REVIEW</button>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
 <div class="row mt-5">
     <div class="col-md-12">
-        <h5>Sample rated projects</h5>
+        <h5 class="text-center">Sample rated projects</h5>
     <hr>
-
     </div>
 </div>
-<div class="row">
+<div class="container-fluid">
+  <div class="row">
     {% for post in posts %}
-    <div class="col-md-4">
+    <div class="col-md-3">
     <div class="card">
         <img src="{{post.image.url}}" class="card-img-top" alt="..." style="max-height: 380px;">
         <div class="card-body">
@@ -42,4 +56,6 @@
     </div>
     {% endfor %}
 </div>
+</div>
+
 {% endblock %}
