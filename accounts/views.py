@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from .models import UserAccount
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileForm
 from projects.models import Project
 # Create your views here.
 
@@ -57,3 +57,15 @@ def profile(request, pk):
     posts = user.project_set.all()
     context = {'posts': posts, 'user': user}
     return render(request, 'accounts/profile.html', context)
+    
+@login_required(login_url='login')
+def edit_profile(request):
+    user = request.user
+    form = ProfileForm(instance=user)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST,  request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile', pk = user.id)
+    context = {'form': form}
+    return render(request, 'accounts/edit_profile.html', context)

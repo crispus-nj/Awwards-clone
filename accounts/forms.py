@@ -29,3 +29,8 @@ class RegisterForm(forms.ModelForm):
 
         if password != confirm_password:
             raise forms.ValidationError("Password must match!!")
+    
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserAccount
+        fields = ['username', 'bio', 'avatar']
