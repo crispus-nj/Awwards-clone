@@ -9,6 +9,7 @@
         </div>
     </div>
 </div>
+{% if request.user.is_authenticated %}
 <div class="container-fluid">
     <div class="row">
         {% for post in posts %}
@@ -142,7 +143,8 @@
         {% endfor %}
     </div>
 </div>
-
-
+{% else %}
+<p style="text-align: center;">Please <span><a href="{% url 'login'%}" style="text-decoration: none;">Login</a></span> and view other peoples project!</p>
+{% endif %}
 
 {% endblock %}
