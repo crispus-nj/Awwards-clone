@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h4 style="margin-top: 5rem; text-align:center;text-transform:uppercase">List of Projects...</h4>
+            <h4 style="margin-top: 5rem; font-weight:bold;text-align:center;text-transform:uppercase">List of Projects...</h4>
             <hr>
         </div>
     </div>
@@ -12,15 +12,17 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-3">
-            <div class="card shadow mt-3">
+            <div class="card shadow mt-3 mb-5">
                 <div class="post_image">
-                    <img src="{{post.image.url}}" alt=""class="card-img-top">
+                    <img src="{{post.image.url}}" alt="" class="card-img-top">
                 </div>
                 <div class="post_infomation">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                           <span> <span class="text-success">Author:</span>  <a
-                            href="{% url 'profile' post.author.id %}" style="text-decoration: none; color:black;font-weight:bold">{{post.author}}</a> </span>
+                            <span> <span class="text-success">Author:</span> <a
+                                    href="{% url 'profile' post.author.id %}"
+                                    style="text-decoration: none; color:black;font-weight:bold">{{post.author}}</a>
+                            </span>
                             <span class="d-inline">
                                 <span>
                                     <form action="{% url 'like' %}" method="POST">
@@ -28,36 +30,79 @@
                                         <input type="hidden" name="post" id="post" value="{{post.id}}">
                                         {% if user not in post.liked.all %}
                                         <button type="submit" class="button-dismiss">
-                                          <i class="fa fa-heart btn"   style="font-size:20px"></i>
+                                            <i class="fa fa-heart btn" style="font-size:20px"></i>
                                         </button>
                                         {% else %}
-                                              <button type="submit" class="button-dismiss">
-                                                <i class="fa fa-heart btn"   style="font-size: 20px; color:red"></i>
-                                              </button>
+                                        <button type="submit" class="button-dismiss">
+                                            <i class="fa fa-heart btn" style="font-size: 20px; color:red"></i>
+                                        </button>
                                         {% endif %}
                                     </form>
                                 </span>
                                 <span>{{post.liked.all.count}} likes</span>
                             </span>
-                        </li>
+                            </li>
                         </div>
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><span class="text-success">Project Name: </span>{{post.name}}</li>
-                          <li class="list-group-item"><span class="text-success">Project Description: </span>{{post.description|truncatechars:50}}</li>
-                          <li class="list-group-item d-flex justify-content-between">
-
-                              <span class="text-success"><a href="{{post.project_link}}" class="text-success">View Site</a></span>
-                              <span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-half-o" aria-hidden="true"></i></span>
+                            <li class="list-group-item"><span class="text-success">Project Name: </span>{{post.name}}
                             </li>
-                          <li class="list-group-item"><span class="text-success">Average Rate: </span> 5</li>
+                            <li class="list-group-item"><span class="text-success">Project Description:
+                                </span>{{post.description|truncatechars:50}}</li>
+                            <li class="list-group-item d-flex justify-content-between">
 
+                                <span class="text-success"><a href="{{post.project_link}}" class="text-success">View
+                                        Site</a></span>
+                                <span><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star"
+                                        aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i> <i
+                                        class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-half-o"
+                                        aria-hidden="true"></i></span>
+                            </li>
+                            <li class="list-group-item"><span class="text-success">Average Rate: </span> 5</li>
+
+                            <li class="list-group-item">
+                                <p>
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#comments-{{post.id}}" role="button"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        Post a Review
+                                    </a>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample-{{post.id}}"
+                                        aria-expanded="false" aria-controls="collapseExample">
+                                        View Reviews
+                                    </button>
+                                </p>
+                                <div class="collapse" id="comments-{{post.id}}">
+                                    <div class="card card-body">
+                                        <form action="" method="POST"
+                                            style="padding-left: 5px;padding-right: 5px;padding-top: 5px; margin-bottom: 0.5rem">
+                                            {% csrf_token %}
+                                            <textarea type="text" name="comment" id="comment" class="form-control "
+                                                placeholder="Add a Review..."></textarea>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="collapse" id="collapseExample-{{post.id}}">
+                                    <div class="card card-body">
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque vero nihil veniam quaerat, eos qui. Nostrum, aut ad. Laboriosam ipsam, minus at distinctio esse laudantium deserunt similique dicta unde provident!</p>
+                                    </div>
+                                </div>
                         </ul>
-                      </div>
+                    </div>
                 </div>
+                </li>
+
+
+
+
+
+
+                
+               
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
+
 
 {% endblock %}

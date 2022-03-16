@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project
+from .models import Project, RatingReview
 
 class PostProjectForm(forms.ModelForm):
     description = forms.CharField( widget = forms.Textarea(attrs={
@@ -19,3 +19,9 @@ class PostProjectForm(forms.ModelForm):
         self.fields['project_link'].widget.attrs['placeholder'] = 'Project Link...'
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = RatingReview
+        fields = ['subject', 'review', 'rating']
