@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import Project, Like
-from .forms import PostProjectForm
+from .models import Project, Like, RatingReview
+from .forms import PostProjectForm, ReviewForm
 
 def home(request):
     posts = Project.objects.all().order_by('-date_posted')
@@ -59,3 +59,30 @@ def like_post(request):
             
         like.save()    
     return redirect('posts')
+
+@login_required(login_url='login')
+def submit_review(request, pk):
+
+    url =  request.META.get('HTTP_REFERER')
+
+    if request.method == 'POST':
+        try:
+            reviews = RatingReview.objects.get(user__id = request.user.id, project__id= pk)
+            form = ReviewForm(request.POST, instance=reviews)
+            form.save()
+            
+            return redirect(url)
+
+        except RatingReview.DoesNotExist:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                data = RatingReview()
+                data.review = form.cleaned_data['review']
+                data.rating = form.cleaned_data['rating']
+                data.ip = request.META.get('REMOTE_ADDR')
+                data.project_id = pk
+                data.user_id = request.user.id
+                data.save()
+
+                return redirect(url)
+            
