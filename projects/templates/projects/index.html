@@ -40,14 +40,18 @@
                         {% csrf_token %}
                         <input type="hidden" name="post" id="post" value="{{post.id}}">
                         {% if user not in post.liked.all %}
-                              <button class="btn btn-info btn-sm" type="submit">like</button>
+                        <button type="submit" class="button-dismiss">
+                          <i class="fa fa-heart btn"   style="font-size: 20px"></i>
+                        </button>
                         {% else %}
-                              <button class="btn btn-danger btn-sm" type="submit">unlike</button>
+                              <button type="submit" class="button-dismiss">
+                                <i class="fa fa-heart btn"   style="font-size: 20px; color:red"></i>
+                              </button>
                         {% endif %}
                     </form>
                   </div>
                   <div class="likes">
-                   <p style="margin-left:0.3rem">{{post.liked.all.count}} likes</p> 
+                   <p>{{post.liked.all.count}} likes</p> 
                   </div>
               </div>
           </div>
