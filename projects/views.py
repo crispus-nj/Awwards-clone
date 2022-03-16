@@ -4,10 +4,15 @@ from .models import Project, Like
 from .forms import PostProjectForm
 
 def home(request):
-    posts = Project.objects.all()
+    posts = Project.objects.all().order_by('-date_posted')
     user = request.user
     context = {'posts': posts, 'user': user}
     return render(request, 'projects/index.html', context)
+
+def posts(request):
+    posts = Project.objects.all().order_by('-date_posted')
+    context = {'posts': posts}
+    return render(request, 'projects/posts.html', context)
 
 @login_required(login_url='login')
 def create_post(request):
@@ -26,7 +31,7 @@ def create_post(request):
                 project_link = project_link,
                 image = image
             )
-            return redirect('home')
+            return redirect('posts')
 
     form = PostProjectForm()
     context = {'form': form}
@@ -53,4 +58,4 @@ def like_post(request):
                 like.value == 'like'
             
         like.save()    
-    return redirect('home')
+    return redirect('posts')
