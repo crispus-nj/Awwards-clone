@@ -58,19 +58,24 @@
                                         class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-half-o"
                                         aria-hidden="true"></i></span>
                             </li>
-                            <li class="list-group-item"><span class="text-success">Average Rate: </span> {{post.average_review}}</li>
+                            <li class="list-group-item"><span class="text-success">Average Rate: </span>
+                                {{post.average_review}}</li>
 
                             <li class="list-group-item">
-                                <p>
-                                    <a class="btn btn-primary" data-toggle="collapse" href="#comments-{{post.id}}"
+                                <p class="d-flex justify-content-between align-items-center">
+                                    <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#comments-{{post.id}}"
                                         role="button" aria-expanded="false" aria-controls="collapseExample">
                                         Post a Review
                                     </a>
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    {% if post.reviews.all.count > 0 %}
+                                    <button class="btn btn-secondary btn-sm" type="button" data-toggle="collapse"
                                         data-target="#collapseExample-{{post.id}}" aria-expanded="false"
                                         aria-controls="collapseExample">
-                                        View Reviews
+                                        View {{post.reviews.all.count}} Reviews
                                     </button>
+                                    {% else %}
+                                    <span class="text-muted">No Reviews </span> 
+                                    {% endif %}
                                 </p>
                                 <div class="collapse" id="comments-{{post.id}}">
                                     <div class="card card-body">
@@ -79,16 +84,26 @@
                                             <div class="form-group">
                                                 <label for="" class="text-danger">How do you rate this project?</label>
                                                 <div class="rate">
-                                                    <input type="radio" name="rating" value="5" id="rating10" required><label for="rating10" title="5"></label>
-                                                    <input type="radio" name="rating" value="4.5" id="rating9" required><label for="rating9" title="4.5" class="half"></label>
-                                                    <input type="radio" name="rating" value="4" id="rating8" required><label for="rating8" title="4"></label>
-                                                    <input type="radio" name="rating" value="3.5" id="rating7" required><label for="rating7" title="3.5" class="half"></label>
-                                                    <input type="radio" name="rating" value="3" id="rating6" required><label for="rating6" title="3"></label>
-                                                    <input type="radio" name="rating" value="2.5" id="rating5" required><label for="rating5" title="2.5" class="half"></label>
-                                                    <input type="radio" name="rating" value="2" id="rating4" required><label for="rating4" title="2"></label>
-                                                    <input type="radio" name="rating" value="1.5" id="rating3" required><label for="rating3" title="1.5" class="half"></label>
-                                                    <input type="radio" name="rating" value="1" id="rating2" required><label for="rating2" title="1"></label>
-                                                    <input type="radio" name="rating" value="0.5" id="rating1" required><label for="rating1" title="0.5" class="half"></label>
+                                                    <input type="radio" name="rating" value="5" id="rating10"
+                                                        required><label for="rating10" title="5"></label>
+                                                    <input type="radio" name="rating" value="4.5" id="rating9"
+                                                        required><label for="rating9" title="4.5" class="half"></label>
+                                                    <input type="radio" name="rating" value="4" id="rating8"
+                                                        required><label for="rating8" title="4"></label>
+                                                    <input type="radio" name="rating" value="3.5" id="rating7"
+                                                        required><label for="rating7" title="3.5" class="half"></label>
+                                                    <input type="radio" name="rating" value="3" id="rating6"
+                                                        required><label for="rating6" title="3"></label>
+                                                    <input type="radio" name="rating" value="2.5" id="rating5"
+                                                        required><label for="rating5" title="2.5" class="half"></label>
+                                                    <input type="radio" name="rating" value="2" id="rating4"
+                                                        required><label for="rating4" title="2"></label>
+                                                    <input type="radio" name="rating" value="1.5" id="rating3"
+                                                        required><label for="rating3" title="1.5" class="half"></label>
+                                                    <input type="radio" name="rating" value="1" id="rating2"
+                                                        required><label for="rating2" title="1"></label>
+                                                    <input type="radio" name="rating" value="0.5" id="rating1"
+                                                        required><label for="rating1" title="0.5" class="half"></label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -96,34 +111,32 @@
                                             </div>
                                             <textarea type="text" name="review" id="comment" class="form-control "
                                                 placeholder="Add a Review..."></textarea>
-                                                {% if request.user.is_authenticated %}
+                                            {% if request.user.is_authenticated %}
                                             <button type="submit" class="btn btn-sm btn-primary mt-2">Send
                                                 Review</button>
-                                                {% else %}
-                                                <p>Please <span><a href="{% url 'login'%}" style="text-decoration: none;">login </a></span> to post the review</p>
-                                                {% endif %}
+                                            {% else %}
+                                            <p>Please <span><a href="{% url 'login'%}"
+                                                        style="text-decoration: none;">login </a></span> to post the
+                                                review</p>
+                                            {% endif %}
                                         </form>
                                     </div>
                                 </div>
                                 <div class="collapse" id="collapseExample-{{post.id}}">
                                     <div class="card card-body">
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque vero nihil
-                                            veniam quaerat, eos qui. Nostrum, aut ad. Laboriosam ipsam, minus at
-                                            distinctio esse laudantium deserunt similique dicta unde provident!</p>
+                                        {% for comment in post.reviews.all %}
+                                        <div class="reviews">
+                                            <span>@<a href="{% url 'profile' comment.user.id %}" style="text-decoration: none;font-weight:bold">{{comment.user.username}}:</a></span>
+                                            <span>{{comment.review}}</span>
+                                        </div>
+                                           
+                                        {% endfor %}
                                     </div>
                                 </div>
                         </ul>
                     </div>
                 </div>
                 </li>
-
-
-
-
-
-
-
-
             </div>
         </div>
         {% endfor %}
