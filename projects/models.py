@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import UserAccount
 from django.db.models import Avg
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 class Project(models.Model):
@@ -8,7 +9,7 @@ class Project(models.Model):
     author = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     project_link = models.URLField(max_length=200)
-    image = models.ImageField()
+    image = CloudinaryField("image")
     liked = models.ManyToManyField(UserAccount, null=True, blank=True, related_name='liked')
     date_posted = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
