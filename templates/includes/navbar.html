@@ -1,44 +1,43 @@
-<nav>
-<input type="checkbox" id="check">
-<header>
-  <label for="check">
-    <i class="fa fa-bars" aria-hidden="true" id="sidebar_btn"></i>
-  </label>
-  <div class="area">
-    <div class="left_area">
-      <h3>Awwwards</h3>
+  <input type="checkbox" id="check">
+  <header>
+    <div class="area">
+      <label for="check">
+        <i class="fa fa-bars" aria-hidden="true" id="sidebar_btn"></i>
+      </label>
+      <div class="left_area">
+        <h3>Awwwards</h3>
+      </div>
+      {% if request.user.is_authenticated %}
+    <a href="{% url 'logout'%}"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span></a>
+      {% else %}
+      <div class="right_area">
+        <a href="{% url 'login'%}"><i class="fa fa-sign-in" aria-hidden="true"></i> <span>Login</span></a>
+        <a href="{% url 'register'%}"><i class="fa fa-user-plus" aria-hidden="true"></i> <span>Register</span></a>
+      </div>
+      {% endif %}
     </div>
-    <div class="right_area">
-      <a href=""><i class="fa fa-sign-in" aria-hidden="true"></i> <span>Login</span></a>
-      <a href=""><i class="fa fa-user-plus" aria-hidden="true"></i> <span>Register</span></a>
-    </div>
+  </header>
+  <div class="sidebar">
+    {% if request.user.is_authenticated %}
+    <center>
+      <img src="{{request.user.avatar.url}}" alt="profile image" class="profile_image">
+      <h4>{{request.user.username}}</h4>
+    </center>
+    {% endif %}
+    <a href="{% url 'home'%}"><i class="fa fa-home" aria-hidden="true"></i> <span>Home</span></a>
+    <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> <span>About Awwwards</span></a>
+    <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i>
+      <span>Posts</span></a>
+      {% if request.user.is_authenticated %}
+    <a href="{% url 'create-post'%}"><i class="fa fa-plus-square" aria-hidden="true"> </i> <span>Create Post</span></a>
+    <a href="{% url 'profile' request.user.id %}"><i class="fa fa-user" aria-hidden="true"></i> <span>Profile</span></a>
+    <a href="{% url 'logout'%}"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span></a>
+    {% endif %}
   </div>
-</header>
-<div class="sidebar">
-  {% if request.user.is_authenticated %}
-  <center>
-    <img src="{{request.user.avatar.url}}" alt="profile image" class="profile_image">
-    <h4>{{request.user.username}}</h4>
-  </center>
-  {% endif %}
-
-  <a href="{% url 'home'%}"><i class="fa fa-home" aria-hidden="true"></i> <span>Home</span></a>
-  <a href="#"><i class="fa fa-info-circle" aria-hidden="true"></i> <span>About Awwwards</span></a>
-  <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i>
-    <span>Posts</span></a>
-  {% if request.user.is_authenticated %}
-
-  <a href="{% url 'create-post'%}"><i class="fa fa-plus-square" aria-hidden="true"> </i> <span>Create Post</span></a>
-  <a href="{% url 'profile' request.user.id %}"><i class="fa fa-user" aria-hidden="true"></i> <span>Profile</span></a>
-  <a href="{% url 'logout'%}"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span></a>
-  {% endif %}
-</div>
-</nav>
-
-<script>
-  const sidebar = document.querySelector('.sidebar')
-  document.getElementById('sidebar_btn').addEventListener('click', ()=> {
-    console.log('clicked')
-    sidebar.style.display = "block";
-})
-</script>
+  <script>
+    const sidebar = document.querySelector('.sidebar')
+    document.getElementById('sidebar_btn').addEventListener('click', () => {
+      console.log('clicked')
+      sidebar.style.display = "block";
+    })
+  </script>
