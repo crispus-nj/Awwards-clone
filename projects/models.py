@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import UserAccount
+from django.db.models import Avg
 # Create your models here.
 
 class Project(models.Model):
@@ -15,6 +16,15 @@ class Project(models.Model):
     @property
     def num_likes(self):
         return self.liked.all().count()
+
+    def average_review(self):
+        reviews = RatingReview.objects.filter(project = self, status=True).aggregate(average = Avg('rating'))
+        avg = 0
+
+        if reviews['average'] is not None:
+            avg = float(reviews['average'])
+        
+        return avg
 
     def __str__(self):
         return self.name
