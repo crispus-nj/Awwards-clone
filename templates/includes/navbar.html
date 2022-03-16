@@ -5,7 +5,7 @@
         <i class="fa fa-bars" aria-hidden="true" id="sidebar_btn"></i>
       </label>
       <div class="left_area">
-        <h3>Awwwards</h3>
+        <h3 style="text-transform: uppercase;">Awwwards.</h3>
       </div>
       {% if request.user.is_authenticated %}
     <a href="{% url 'logout'%}"><i class="fa fa-sign-out" aria-hidden="true"></i> <span>Logout</span></a>
@@ -17,7 +17,7 @@
       {% endif %}
     </div>
   </header>
-  <div class="sidebar">
+  <div class="sidebar mt-5">
     {% if request.user.is_authenticated %}
     <center>
       <img src="{{request.user.avatar.url}}" alt="profile image" class="profile_image">

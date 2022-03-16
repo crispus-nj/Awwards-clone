@@ -45,3 +45,9 @@ input:checked ~ label:hover ~ label,
 label:hover ~ input:checked ~ label{
     color: #cc9000;
 }
+
+@media screen and (max-width: 700px){
+    .register_login {
+      display: none !important;
+    }
+  }
